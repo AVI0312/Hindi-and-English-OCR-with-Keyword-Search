@@ -1,13 +1,26 @@
 import streamlit as st
-import pytesseract
+import requests
 from PIL import Image
 import re
-
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+import io
 
 def extract_text(image):
-    extracted_text = pytesseract.image_to_string(image, lang='eng+hin')
-    return extracted_text
+    api_key = "YOUR_OCR_SPACE_API_KEY"  # Replace with your actual API key
+    img_byte_arr = io.BytesIO()
+    image.save(img_byte_arr, format='PNG')
+    img_byte_arr = img_byte_arr.getvalue()
+
+    response = requests.post(
+        "https://api.ocr.space/parse/image",
+        files={ 'filename': img_byte_arr },
+        data={ 'apikey': api_key, 'language': 'eng+hin' }
+    )
+    
+    result = response.json()
+    if result['IsErroredOnProcessing']:
+        return "Error: " + result['ErrorMessage'][0]
+    
+    return result['ParsedResults'][0]['ParsedText']
 
 def search_keywords(extracted_text, keyword):
     keyword_pattern = r'\b' + re.escape(keyword) + r'\b'
