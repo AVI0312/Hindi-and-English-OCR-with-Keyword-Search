@@ -18,5 +18,8 @@ This web application utilizes Optical Character Recognition (OCR) to extract tex
 3. Install Tesseract OCR:
    sudo apt-get update
    sudo apt-get install -y tesseract-ocr
+4. Run the application:
+   python iitr.py
+
 
 
