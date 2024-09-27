@@ -3,7 +3,7 @@ import pytesseract
 from PIL import Image
 import re
 
-pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 def extract_text(image):
     extracted_text = pytesseract.image_to_string(image, lang='eng+hin')
