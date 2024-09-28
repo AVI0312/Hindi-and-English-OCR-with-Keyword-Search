@@ -4,10 +4,6 @@
 # In[1]:
 
 
-# Install necessary libraries
-get_ipython().system('pip install torch torchvision transformers gradio numpy Pillow pytesseract')
-
-
 # In[2]:
 
 
